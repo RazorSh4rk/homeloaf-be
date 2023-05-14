@@ -1,0 +1,13 @@
+service: homeloaf-be
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  deploymentMethod: direct
+  region: us-west-2
+  stage: production
+
+functions:
+  homeloaf:
+    handler: app.handler

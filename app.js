@@ -17,13 +17,12 @@ exports.handler = async (event) => {
       const response = {
           statusCode: 200,
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'text/html'
           },
-          body: JSON.stringify({ message: '' })
+          body: '<h1>test</h1>'
         };
         
         return response
-      
     }
   };
   
