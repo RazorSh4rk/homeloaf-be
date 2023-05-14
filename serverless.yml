@@ -10,7 +10,7 @@ provider:
   memorySize: 512
   timeout: 10
   environment:
-    OPENAPI_KEY: ${param:OPENAPI_KEY}
+    OPENAI_KEY: ${param:OPENAI_KEY}
 
 functions:
   homeloaf:
