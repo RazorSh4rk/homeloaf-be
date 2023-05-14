@@ -19,7 +19,7 @@ exports.handler = async (event) => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ message: 'none' })
+          body: JSON.stringify({ message: '' })
         };
         
         return response
