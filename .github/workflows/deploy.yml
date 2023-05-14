@@ -27,4 +27,4 @@ jobs:
         run: npm i
      
       - name: Deploy lambda function
-        run: sls deploy
+        run: sls deploy --param="OPENAPI_KEY=${{ secrets.OPENAPI_KEY }}"
