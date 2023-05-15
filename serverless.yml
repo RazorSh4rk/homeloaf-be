@@ -13,5 +13,5 @@ provider:
     OPENAI_KEY: ${param:OPENAI_KEY}
 
 functions:
-  homeloaf:
-    handler: a  pp.handler
+  test:
+    handler: test.handler

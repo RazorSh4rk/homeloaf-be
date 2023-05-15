@@ -17,9 +17,9 @@ exports.handler = async (event) => {
       const response = {
           statusCode: 200,
           headers: {
-            'Content-Type': 'text/html'
+            'Content-Type': 'application/json'
           },
-          body: '<h1>test</h1>'
+          body: JSON.stringify(event)
         };
         
         return response
