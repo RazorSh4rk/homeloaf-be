@@ -9,8 +9,6 @@ provider:
   stage: production
   memorySize: 512
   timeout: 10
-  environment:
-    OPENAI_KEY: ${param:OPENAI_KEY}
 
 functions:
   test:
