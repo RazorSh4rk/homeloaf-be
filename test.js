@@ -1,7 +1,5 @@
 exports.handler = async (event) => {
-    const { httpMethod, path } = event;
-  
-    if (httpMethod == 'GET' && path == '/ping') {
+    if (event.requestContext.http.method == 'GET' && event.requestContext.http.path == '/ping') {
        const response = {
           statusCode: 200,
           headers: {
