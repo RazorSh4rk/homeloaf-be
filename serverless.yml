@@ -8,7 +8,7 @@ provider:
   region: us-west-2
   stage: production
   memorySize: 512
-  timeout: 10
+  timeout: 30
 
 functions:
   test:
