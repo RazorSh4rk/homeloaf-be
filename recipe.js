@@ -6,7 +6,7 @@ exports.handler = async (event) => {
       apiKey: process.env.OPENAI_API_KEY,
     })
 
-    const ingredients = JSON.parse(event.body)
+    const ingredients = JSON.parse(event.body).ingredients
     const prompt = `
         Give me 3 recipes in a json list format, fitting this example: 
         [{'name': 'food_name', ingredients:['a', 'b', 'c'], steps:['do this', 'do that']}] 
