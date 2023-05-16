@@ -8,8 +8,6 @@ exports.handler = async (event) => {
         apiKey: process.env.OPENAI_API_KEY,
       });
     
-      print("KEY " + configuration.apiKey)
-    
       const prompt = `
               Give me 3 recipes in a json list format, fitting this example: 
               [{'name': 'food_name', ingredients:['a', 'b', 'c'], steps:['do this', 'do that']}] 
