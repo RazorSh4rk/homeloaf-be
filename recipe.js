@@ -11,7 +11,7 @@ exports.handler = async (event) => {
         Give me 3 recipes in a json list format, fitting this example: 
         [{'name': 'food_name', ingredients:['a', 'b', 'c'], steps:['do this', 'do that']}] 
         if the available ingredients are these, and i want to have to buy the absolute
-        minimum extra: ${', '.join(ingredients)}
+        minimum extra: ${ingredients.join(', ')}
     `
 
     const openai = new OpenAIApi(configuration);
