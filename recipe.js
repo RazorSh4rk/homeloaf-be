@@ -6,6 +6,7 @@ exports.handler = async (event) => {
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
+  console.log(configuration)
 
   const prompt = `
               Give me 3 recipes in a json list format, fitting this example: 
