@@ -13,3 +13,5 @@ provider:
 functions:
   test:
     handler: test.handler
+  recipe:
+    handler: recipe.handler
