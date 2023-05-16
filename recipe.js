@@ -1,12 +1,11 @@
 const { Configuration, OpenAIApi } = require("openai");
 
 exports.handler = async (event) => {
-  const ingredients = ["cheese", "tomato", "bread"] //JSON.parse(event.body).ingredients;
+  const ingredients = JSON.parse(event.body).ingredients;
 
   const configuration = new Configuration({
     apiKey: process.env.OPENAI_API_KEY,
   });
-  console.log(configuration)
 
   const prompt = `
               Give me 3 recipes in a json list format, fitting this example: 
