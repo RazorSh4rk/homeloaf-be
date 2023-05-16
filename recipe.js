@@ -1,4 +1,4 @@
-import { getRecipe } from "recipe_handler.js";
+const { getRecipe } = require("./recipe_handler.js");
 
 exports.handler = async (event) => {
   if (event.requestContext.http.method == "POST") {
