@@ -1,5 +1,6 @@
 <script>
-  import { Styles, Input, Button, Icon } from "sveltestrap"
+  import { Input, Button, Icon, Spinner, Collapse, Card } from "sveltestrap";
+  import { Jellyfish } from "svelte-loading-spinners";
 
   const popular_ingredients = [
     "Salt",
@@ -52,49 +53,100 @@
     "Nuts (e.g. almonds, walnuts, peanuts)",
     "Chocolate chips",
     "Marshmallows",
-  ]
+  ];
 
-  let query = ""
+  let query = "";
   const lambdaUrl =
-    "https://weqmnzytdn6ojmdyavinuzf2qy0prcpa.lambda-url.us-west-2.on.aws/"
+    "https://weqmnzytdn6ojmdyavinuzf2qy0prcpa.lambda-url.us-west-2.on.aws/";
+
+  let recipes = [];
+  let loading = false;
 
   const addIngredient = (event) => {
-    const thing = event.originalTarget.firstChild.textContent
+    const thing = event.originalTarget.firstChild.textContent;
 
-    query = thing + ", " + query
-  }
+    query = thing + ", " + query;
+  };
 
   const getRecipes = () => {
+    loading = true
     const payload = {
-      ingredients: query.split(",")
-    }
+      ingredients: query.split(","),
+    };
 
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
-    }
+    };
 
-    fetch(lambdaUrl,options)
+    console.log(options);
+
+    fetch(lambdaUrl, options)
       .then((response) => response.json())
-      .then((response) => console.log(response))
-      .catch((err) => console.error(err))
-  }
+      .then((response) => {
+        loading = false
+        recipes = response
+      })
+      .catch((err) => console.error(err));
+  };
 </script>
 
+<svelte:head>
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
+  />
+</svelte:head>
+
 <main>
-  <div>
+  <div class="content">
+    <p>
+      <Input type="text" value={query} class="inp-search" />
+      <Button class="btn-ok" on:click={getRecipes}
+        ><Icon name="search-heart" /></Button
+      >
+    </p>
+
+    <p>Add common ingredients</p>
     <p>
       {#each popular_ingredients as ingredient}
         <Button on:click={addIngredient}>{ingredient}</Button>
       {/each}
     </p>
 
-    <Input type="text" value={query} />
-    <Button on:click={getRecipes}>Go</Button>
-    <Icon name="search-heart" />
+    <div>
+      {#if loading}
+      <p class="loader">
+        <Jellyfish
+          size="120"
+          color="#FF3E00"
+          unit="px"
+          duration="2s"
+        />
+      </p>
+      {:else}
+      <ul>
+        {#each recipes as recipe}
+          <li>
+            <p>{recipe.name}</p>
+            <p />
+            <ul>
+              {#each recipe.ingredients as ingredient}
+                <li>{ingredient}</li>
+              {/each}
+            </ul>
+
+            <p />
+            <ul>
+              {#each recipe.steps as step}
+                <li>{step}</li>
+              {/each}
+            </ul>
+          </li>
+        {/each}
+      </ul>
+      {/if}
+    </div>
   </div>
 </main>
-
-<style>
-</style>

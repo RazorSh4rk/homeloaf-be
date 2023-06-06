@@ -36,8 +36,18 @@ h1 {
   line-height: 1.1;
 }
 
-.card {
-  padding: 2em;
+.inp-search {
+  padding: 1em 2em;
+  width: 85%;
+}
+
+.btn-ok {
+  padding: 0.8em;
+}
+
+.loader {
+  margin: auto;
+  width: 120px;
 }
 
 #app {
@@ -50,12 +60,10 @@ h1 {
 button {
   border-radius: 8px;
   border: 1px solid transparent;
-  padding: 0.6em 1.2em;
+  padding: 0.2em 0.4em;
   font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
   background-color: #1a1a1a;
-  cursor: pointer;
   transition: border-color 0.25s;
 }
 button:hover {
