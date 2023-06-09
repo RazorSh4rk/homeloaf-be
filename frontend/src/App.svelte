@@ -1,5 +1,10 @@
 <script>
-  import { Input, Button, Icon, Spinner, Collapse, Card } from "sveltestrap";
+  import { Input, Icon, Spinner, Collapse } from "sveltestrap";
+  import Button from '@smui/button'
+  import TextField from '@smui/textfield'
+  import List from '@smui/list'
+  import Item from '@smui/list'
+  import Card from '@smui/card'
   import { Jellyfish } from "svelte-loading-spinners";
 
   const popular_ingredients = [
@@ -102,8 +107,9 @@
 <main>
   <div class="content">
     <p>
-      <Input type="text" value={query} class="inp-search" />
-      <Button class="btn-ok" on:click={getRecipes}
+      <TextField style={"color: white !important;"} variant="outlined" type="text" label="Search an ingredient" bind:value={query} class="inp-search" >
+      </TextField>
+      <Button variant="outlined" class="btn-ok" on:click={getRecipes}
         ><Icon name="search-heart" /></Button
       >
     </p>
@@ -111,7 +117,7 @@
     <p>Add common ingredients</p>
     <p>
       {#each popular_ingredients as ingredient}
-        <Button on:click={addIngredient}>{ingredient}</Button>
+        <Button class="ingredient-btn" variant="raised"  on:click={addIngredient}>{ingredient}</Button>
       {/each}
     </p>
 
@@ -126,26 +132,28 @@
         />
       </p>
       {:else}
-      <ul>
+      <div style="margin-top: 1%; padding: unset !important;">
         {#each recipes as recipe}
-          <li>
+          <Card class="recipe-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 3%; padding: 3%; text-align: center;">
             <p>{recipe.name}</p>
             <p />
-            <ul>
+            <p>Ingredients</p>
+            <ul style="display: flex; justify-content: space-between; min-width: 50%;">
               {#each recipe.ingredients as ingredient}
-                <li>{ingredient}</li>
+                <Item style="margin: 1%;">{ingredient}</Item>
               {/each}
             </ul>
 
             <p />
+            <p>Steps</p>
             <ul>
               {#each recipe.steps as step}
-                <li>{step}</li>
+                <Item>{step}</Item>
               {/each}
             </ul>
-          </li>
+          </Card>
         {/each}
-      </ul>
+        </div>
       {/if}
     </div>
   </div>
