@@ -77,6 +77,11 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+label {
+  .inp-search.mdc-text-field.smui {
+    color: ''
+  }
+}
 
 @media (prefers-color-scheme: light) {
   :root {
