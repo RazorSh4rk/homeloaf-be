@@ -107,9 +107,9 @@
 <main>
   <div class="content">
     <p>
-      <TextField style={"color: white !important;"} variant="outlined" type="text" label="Search an ingredient" bind:value={query} class="inp-search" >
+      <TextField style={"color: white !important;"} variant="standard" type="text" label="Search an ingredient" bind:value={query} class="inp-search" >
       </TextField>
-      <Button variant="outlined" class="btn-ok" on:click={getRecipes}
+      <Button style="background-color: #F44336" variant="raised" class="btn-ok" on:click={getRecipes}
         ><Icon name="search-heart" /></Button
       >
     </p>
@@ -117,7 +117,7 @@
     <p>Add common ingredients</p>
     <p>
       {#each popular_ingredients as ingredient}
-        <Button class="ingredient-btn" variant="raised"  on:click={addIngredient}>{ingredient}</Button>
+        <Button style="background-color: #F44336;" class="ingredient-btn" variant="raised"  on:click={addIngredient}>{ingredient}</Button>
       {/each}
     </p>
 
