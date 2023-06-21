@@ -8,8 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "npm run smui-theme-light && npm run smui-theme-dark",
-    "smui-theme-light": "smui-theme compile build/smui.css -i src/theme",
-    "smui-theme-dark": "smui-theme compile build/smui-dark.css -i src/theme/dark"
+    "smui-theme-light": "smui-theme compile frontend/build/smui.css -i frontend/src/theme",
+    "smui-theme-dark": "smui-theme compile frontend/build/smui-dark.css -i frontend/src/theme/dark"
   },
   "devDependencies": {
     "@smui/card": "^7.0.0-beta.8",
