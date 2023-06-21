@@ -18,11 +18,17 @@ jobs:
         with:
           node-version: '18.x'
 
+      - name: cd
+        run: cd frontend/
+
       - name: Install dependencies
         run: npm install
 
+      - name: Install vite
+        run: npm i -g vite
+
       - name: Build Svelte project
-        run: npm run build
+        run: vite build
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -32,4 +38,4 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy to S3
-        run: aws s3 sync ./public s3://homeloaf-frontend --delete
+        run: aws s3 sync ./dist s3://homeloaf-frontend --delete
