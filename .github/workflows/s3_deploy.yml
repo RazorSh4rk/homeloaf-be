@@ -19,7 +19,7 @@ jobs:
           node-version: '18.x'
 
       - name: Install dependencies
-        run: npm install
+        run: npm i ./frontend/
 
       - name: Install vite
         run: npm i -g vite
@@ -35,4 +35,4 @@ jobs:
           aws-region: us-west-2
 
       - name: Deploy to S3
-        run: aws s3 sync ./forntend/dist s3://homeloaf-frontend --delete
+        run: aws s3 sync ./frontend/dist s3://homeloaf-frontend --delete
