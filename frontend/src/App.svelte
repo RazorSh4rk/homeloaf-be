@@ -136,7 +136,7 @@
       <div>
         <p>🤖 Add some things you have in your fridge</p>
         <TextField
-          style="color: white !important; width: 100%;"
+          style="color: white !important; width: 80%;"
           variant="standard"
           type="text"
           label="stuff in my fridge"
