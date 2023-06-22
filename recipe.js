@@ -9,16 +9,16 @@ exports.handler = async (event) => {
 
   const key = event.requestContext.identity.sourceIp;
 
-  client.exists(key, (error, exists) => {
+  redis.exists(key, (error, exists) => {
     if (error) {
       console.error("Error:", error);
-      client.quit();
+      redis.quit();
       return;
     }
 
     if (exists === 1) {
       console.log(`${key} rate limited`);
-      client.quit();
+      redis.quit();
 
       const response = {
         statusCode: 401,
@@ -30,13 +30,13 @@ exports.handler = async (event) => {
 
       return;
     } else {
-      client.setex(key, expirationSeconds, value, (error) => {
+      redis.setex(key, expirationSeconds, value, (error) => {
         if (error) {
           console.error("Error:", error);
         } else {
           console.log("Key added with expiration");
         }
-        client.quit();
+        redis.quit();
       });
     }
   });
