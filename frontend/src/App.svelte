@@ -108,7 +108,7 @@
   />
   <link
     rel="stylesheet"
-    href="node_modules/svelte-material-ui/themes/svelte-dark.css"
+    href="./svelte-dark.css"
     media="screen"
   />
 </svelte:head>
