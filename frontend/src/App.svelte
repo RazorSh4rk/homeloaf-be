@@ -1,11 +1,12 @@
 <script>
   import { Input, Icon, Spinner, Collapse } from "sveltestrap";
-  import Button from '@smui/button'
-  import TextField from '@smui/textfield'
-  import List from '@smui/list'
-  import Item from '@smui/list'
-  import Card from '@smui/card'
+  import Button from "@smui/button";
+  import TextField from "@smui/textfield";
+  import List from "@smui/list";
+  import Item from "@smui/list";
+  import Card from "@smui/card";
   import { Jellyfish } from "svelte-loading-spinners";
+  import PrimaryAction from "@smui/card/src/PrimaryAction.svelte";
 
   const popular_ingredients = [
     "Salt",
@@ -66,15 +67,22 @@
 
   let recipes = [];
   let loading = false;
+  let hideUI = false;
 
   const addIngredient = (event) => {
-    const thing = event.originalTarget.firstChild.textContent;
+    const thing = event.target.parentElement.innerText.toLowerCase();
 
     query = thing + ", " + query;
   };
 
+  const reset = () => {
+    hideUI = false;
+  };
+
   const getRecipes = () => {
-    loading = true
+    loading = true;
+    hideUI = true;
+
     const payload = {
       ingredients: query.split(","),
     };
@@ -85,13 +93,11 @@
       body: JSON.stringify(payload),
     };
 
-    console.log(options);
-
     fetch(lambdaUrl, options)
       .then((response) => response.json())
       .then((response) => {
-        loading = false
-        recipes = response
+        loading = false;
+        recipes = response;
       })
       .catch((err) => console.error(err));
   };
@@ -106,53 +112,97 @@
 
 <main>
   <div class="content">
-    <p>
-      <TextField style={"color: white !important;"} variant="standard" type="text" label="Search an ingredient" bind:value={query} class="inp-search" >
-      </TextField>
-      <Button style="background-color: #F44336" variant="raised" class="btn-ok" on:click={getRecipes}
-        ><Icon name="search-heart" /></Button
-      >
-    </p>
+    <div>
+      <h1>
+        {#if !hideUI && !loading}
+          🤖 Hello! I'm an AI that helps you cook from things you already have
+          at home!
+        {/if}
 
-    <p>Add common ingredients</p>
-    <p>
-      {#each popular_ingredients as ingredient}
-        <Button style="background-color: #F44336;" class="ingredient-btn" variant="raised"  on:click={addIngredient}>{ingredient}</Button>
-      {/each}
-    </p>
+        {#if hideUI && loading}
+          🤖 Hold on, I'm thinking...
+        {/if}
+
+        {#if hideUI && !loading}
+          🤖 I found some recipes for you!
+        {/if}
+      </h1>
+    </div>
+
+    {#if !hideUI}
+      <div>
+        <p>🤖 Add some things you have in your fridge</p>
+        <TextField
+          style={"color: white !important;"}
+          variant="standard"
+          type="text"
+          label="stuff in my fridge"
+          bind:value={query}
+          class="inp-search"
+        />
+        <Button
+          style="background-color: #F44336"
+          variant="raised"
+          class="btn-ok"
+          on:click={getRecipes}><Icon name="search-heart" /></Button
+        >
+      </div>
+
+      <p>🤖 or pick some common ingredients</p>
+      <p>
+        {#each popular_ingredients as ingredient}
+          <Button
+            style="background-color: #F44336;"
+            class="ingredient-btn"
+            variant="raised"
+            on:click={addIngredient}>{ingredient}</Button
+          >
+        {/each}
+      </p>
+    {/if}
 
     <div>
       {#if loading}
-      <p class="loader">
-        <Jellyfish
-          size="120"
-          color="#FF3E00"
-          unit="px"
-          duration="2s"
-        />
-      </p>
+        <p class="loader">
+          <Jellyfish size="120" color="#FF3E00" unit="px" duration="2s" />
+        </p>
       {:else}
-      <div style="margin-top: 1%; padding: unset !important;">
-        {#each recipes as recipe}
-          <Card class="recipe-card" style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 3%; padding: 3%; text-align: center;">
-            <p>{recipe.name}</p>
-            <p />
-            <p>Ingredients</p>
-            <ul style="display: flex; justify-content: space-between; min-width: 50%;">
-              {#each recipe.ingredients as ingredient}
-                <Item style="margin: 1%;">{ingredient}</Item>
-              {/each}
-            </ul>
+        {#if hideUI}
+          <div>
+            <Button
+              style="background-color: #F44336;"
+              class="ingredient-btn"
+              variant="raised"
+              on:click={reset}>🤖 Go again</Button
+            >
+          </div>
+        {/if}
+        <div style="margin-top: 1%; padding: unset !important;">
+          {#each recipes as recipe}
+            <Card
+              class="recipe-card"
+              style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 3%; padding: 3%; text-align: center;"
+            >
+              <p><u>📖 {recipe.name}</u></p>
+              <p />
+              <p><u>Ingredients</u></p>
+              <ul
+                style="display: flex; justify-content: space-between; min-width: 50%;"
+              >
+                {#each recipe.ingredients as ingredient}
+                  <Item style="margin: 1%;">🍜 {ingredient}</Item>
+                {/each}
+              </ul>
 
-            <p />
-            <p>Steps</p>
-            <ul>
-              {#each recipe.steps as step}
-                <Item>{step}</Item>
-              {/each}
-            </ul>
-          </Card>
-        {/each}
+              <p />
+              <p><u>Steps</u></p>
+              <ul>
+                {#each recipe.steps as step}
+                  <Item>✔️ {step}</Item>
+                {/each}
+              </ul>
+            </Card>
+          {/each}
         </div>
       {/if}
     </div>
