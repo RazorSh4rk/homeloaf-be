@@ -1,8 +1,8 @@
 const { Configuration, OpenAIApi } = require("openai");
-const redis = require("redis");
+
 
 exports.handler = async (event) => {
-  const redis = redis.createClient({
+  /*const redis = redis.createClient({
     host: process.env.REDIS_IP,
     port: 6379,
   });
@@ -40,7 +40,7 @@ exports.handler = async (event) => {
         redis.quit();
       });
     }
-  });
+  });*/
 
   const ingredients = JSON.parse(event.body).ingredients;
 
