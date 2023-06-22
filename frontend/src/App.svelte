@@ -109,7 +109,7 @@
   <link
     rel="stylesheet"
     href="node_modules/svelte-material-ui/themes/svelte-dark.css"
-    media="screen and (prefers-color-scheme: dark)"
+    media="screen"
   />
 </svelte:head>
 
@@ -136,7 +136,7 @@
       <div>
         <p>🤖 Add some things you have in your fridge</p>
         <TextField
-          style={"color: white !important;"}
+          style="color: white !important; width: 100%;"
           variant="standard"
           type="text"
           label="stuff in my fridge"
