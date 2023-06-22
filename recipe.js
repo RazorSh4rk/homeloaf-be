@@ -6,6 +6,7 @@ exports.handler = async (event) => {
     host: process.env.REDIS_IP,
     port: 6379,
   });
+  await redis.connect();
 
   const key = event.requestContext.identity.sourceIp;
 
