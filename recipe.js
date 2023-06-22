@@ -1,6 +1,46 @@
 const { Configuration, OpenAIApi } = require("openai");
+const redis = require("redis");
 
 exports.handler = async (event) => {
+  const redis = redis.createClient({
+    host: process.env.REDIS_IP,
+    port: 6379,
+  });
+
+  const key = event.requestContext.identity.sourceIp;
+
+  client.exists(key, (error, exists) => {
+    if (error) {
+      console.error("Error:", error);
+      client.quit();
+      return;
+    }
+
+    if (exists === 1) {
+      console.log(`${key} rate limited`);
+      client.quit();
+
+      const response = {
+        statusCode: 401,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ reason: "rate-limit" }),
+      };
+
+      return;
+    } else {
+      client.setex(key, expirationSeconds, value, (error) => {
+        if (error) {
+          console.error("Error:", error);
+        } else {
+          console.log("Key added with expiration");
+        }
+        client.quit();
+      });
+    }
+  });
+
   const ingredients = JSON.parse(event.body).ingredients;
 
   const configuration = new Configuration({
@@ -23,7 +63,7 @@ exports.handler = async (event) => {
     temperature: 1,
   });
 
-  result = JSON.parse(res.data.choices[0].text.trim())
+  result = JSON.parse(res.data.choices[0].text.trim());
 
   const response = {
     statusCode: 200,
