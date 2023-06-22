@@ -2,11 +2,9 @@
   import { Input, Icon, Spinner, Collapse } from "sveltestrap";
   import Button from "@smui/button";
   import TextField from "@smui/textfield";
-  import List from "@smui/list";
   import Item from "@smui/list";
   import Card from "@smui/card";
   import { Jellyfish } from "svelte-loading-spinners";
-  import PrimaryAction from "@smui/card/src/PrimaryAction.svelte";
 
   const popular_ingredients = [
     "Salt",
@@ -108,6 +106,11 @@
     rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
   />
+  <link
+    rel="stylesheet"
+    href="node_modules/svelte-material-ui/themes/svelte-dark.css"
+    media="screen and (prefers-color-scheme: dark)"
+  />
 </svelte:head>
 
 <main>
@@ -115,7 +118,7 @@
     <div>
       <h1>
         {#if !hideUI && !loading}
-          🤖 Hello! I'm an AI that helps you cook from things you already have
+          🤖 Hello! I'm an AI that helps you cook with things you already have
           at home!
         {/if}
 
