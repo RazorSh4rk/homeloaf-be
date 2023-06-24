@@ -113,6 +113,22 @@
   />
 </svelte:head>
 
+<style>
+  .footer {
+    width: fit-content;
+    font-size: 75%;
+    text-align: left;
+  }
+
+  .footer p {
+    margin: 0px;
+    padding: 2px 10px 5px 2px;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    border-radius: 5px;
+  }
+</style>
+
 <main>
   <div class="content">
     <div>
@@ -208,6 +224,11 @@
           {/each}
         </div>
       {/if}
+    </div>
+    <div class="footer">
+      <a href="https://www.linkedin.com/in/hunter-koenig-albert-b55a81221/"><p>Frontend by 👨‍💻</p></a>
+      <a href="https://www.linkedin.com/in/%F0%9F%A6%88-levente-szab%C3%B3-7b066710b/"><p>Backend and ops by 😼</p></a>
+      <a href="https://github.com/RazorSh4rk/homeloaf-be"><p>The code is here 📁</p></a>
     </div>
   </div>
 </main>
